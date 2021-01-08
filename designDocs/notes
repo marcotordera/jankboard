@@ -1,0 +1,47 @@
+/////server side set up /////
+npm i express mongoose concurrently axios bcryptjs jsonwebtoken config
+npm i -D nodemon
+
+package.json scripts
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+
+
+/////client side set up/////
+
+npx create-react-app client
+npm i bootstrap reactstrap  react-transition-group
+npm i redux react-redux redux-thunk
+
+add in package.json below scripts for proxy
+  "proxy":"http://localhost:5000",
+
+
+
+/////heroku deployment cli/////
+
+heroku create
+
+
+deployment error ->from github discussion
+I just want to share my experience on this, took me a while to figure out.
+
+Open up the client directory, not in visual studio but in windows folder, go to view and check show hidden folder, git folder will appear, delete it, cut and paste the entire client folder outside the main directory, then go back to command in visual studio, do the following
+
+Git add .
+Git commit -m "some comment"
+After adding and committing without the client folder, cut and paste back the client folder to where it was, and do the following.
+
+Git init (not sure if this is necessary but I did it)
+heroku git:remote -a ... (the message for setting heroku remote)
+Git add .
+Git commit -m "some comment"
+Git push heroku master
+As to why this error occurred I don't know, apparently it's got to do with having two git folders in main and client directory, each one gets created but perhaps intrinsically different? The solution seems to be getting rid of the git folder in the sub directory, keep the one in main directory, and do the above steps to make it work.
+
+Apparently just simply deleting the git folder isn't enough, you have to move the client folder outside once, and move it back to the exact same location, and Git Add Git Commit.
