@@ -35,7 +35,7 @@ const CommentAddModal = ({ isAuthenticated, addComment, postId }) => {
   return (
     <div>
       {isAuthenticated ? (
-        <Button outline color="secondary" onClick={handleToggle}>
+        <Button outline color="secondary" size="sm" onClick={handleToggle}>
           Reply
         </Button>
       ) : (
@@ -43,11 +43,11 @@ const CommentAddModal = ({ isAuthenticated, addComment, postId }) => {
       )}
 
       <Modal isOpen={modal} toggle={handleToggle}>
-        <ModalHeader toggle={handleToggle}>Add Comment</ModalHeader>
+        <ModalHeader toggle={handleToggle}>Add Reply</ModalHeader>
         <ModalBody>
           <Form onSubmit={handleOnSubmit}>
             <FormGroup>
-              <Label for="comment">Enter Comment</Label>
+              <Label for="comment">Enter Reply</Label>
               <Input
                 type="text"
                 name="text"
@@ -55,7 +55,12 @@ const CommentAddModal = ({ isAuthenticated, addComment, postId }) => {
                 placeholder="Type Here"
                 onChange={handleChangeText}
               />
-              <Button color="dark" style={{ marginTop: "2rem" }} block>
+              <Button
+                color="dark"
+                size="sm"
+                style={{ marginTop: "2rem" }}
+                block
+              >
                 Add reply
               </Button>
             </FormGroup>

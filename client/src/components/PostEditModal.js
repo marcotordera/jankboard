@@ -32,7 +32,7 @@ const PostEditModal = ({ editPost, postId }) => {
 
   return (
     <div>
-      <Button outline color="warning" onClick={handleToggle}>
+      <Button outline color="warning" size="sm" onClick={handleToggle}>
         Edit
       </Button>
       <Modal isOpen={modal} toggle={handleToggle}>
@@ -40,7 +40,7 @@ const PostEditModal = ({ editPost, postId }) => {
         <ModalBody>
           <Form onSubmit={handleOnSubmit}>
             <FormGroup>
-              <Label for="comment">Enter Comment</Label>
+              <Label for="comment">Edit Post</Label>
               <Input
                 type="text"
                 name="text"
@@ -48,7 +48,12 @@ const PostEditModal = ({ editPost, postId }) => {
                 placeholder="Type Here"
                 onChange={handleChangeText}
               />
-              <Button color="dark" style={{ marginTop: "2rem" }} block>
+              <Button
+                color="dark"
+                size="sm"
+                style={{ marginTop: "2rem" }}
+                block
+              >
                 Edit Post
               </Button>
             </FormGroup>

@@ -33,15 +33,15 @@ const CommentEditModal = ({ editComment, postId, commentId }) => {
 
   return (
     <div>
-      <Button outline color="warning" onClick={handleToggle}>
+      <Button outline color="warning" size="sm" onClick={handleToggle}>
         Edit
       </Button>
       <Modal isOpen={modal} toggle={handleToggle}>
-        <ModalHeader toggle={handleToggle}>Edit Comment</ModalHeader>
+        <ModalHeader toggle={handleToggle}>Edit Reply</ModalHeader>
         <ModalBody>
           <Form onSubmit={handleOnSubmit}>
             <FormGroup>
-              <Label for="comment">Enter Comment</Label>
+              <Label for="comment">Edit Reply</Label>
               <Input
                 type="text"
                 name="text"
@@ -49,8 +49,13 @@ const CommentEditModal = ({ editComment, postId, commentId }) => {
                 placeholder="Type Here"
                 onChange={handleChangeText}
               />
-              <Button color="dark" style={{ marginTop: "2rem" }} block>
-                Edit Post
+              <Button
+                color="dark"
+                size="sm"
+                style={{ marginTop: "2rem" }}
+                block
+              >
+                Edit Reply
               </Button>
             </FormGroup>
           </Form>

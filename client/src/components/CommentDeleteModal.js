@@ -17,7 +17,7 @@ const CommentDeleteModal = ({ deleteComment, postId, commentId, text }) => {
 
   return (
     <div>
-      <Button outline color="danger" onClick={handleToggle}>
+      <Button outline color="danger" size="sm" onClick={handleToggle}>
         Delete
       </Button>
       <Modal isOpen={modal} toggle={handleToggle}>
@@ -25,8 +25,8 @@ const CommentDeleteModal = ({ deleteComment, postId, commentId, text }) => {
         <ModalBody>
           <Form onSubmit={handleOnSubmit}>
             <p>{text}</p>
-            <Button outline color="danger" onClick={handleOnSubmit}>
-              Delete Post
+            <Button outline color="danger" size="sm" onClick={handleOnSubmit}>
+              Delete Reply
             </Button>
           </Form>
         </ModalBody>

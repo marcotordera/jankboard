@@ -13,7 +13,7 @@ const PostDeleteModal = ({ deletePost, postId, text }) => {
 
   return (
     <div>
-      <Button outline color="danger" onClick={handleToggle}>
+      <Button outline color="danger" size="sm" onClick={handleToggle}>
         Delete
       </Button>
       <Modal isOpen={modal} toggle={handleToggle}>
@@ -21,7 +21,7 @@ const PostDeleteModal = ({ deletePost, postId, text }) => {
         <ModalBody>
           <Form onSubmit={handleOnSubmit}>
             <p>{text}</p>
-            <Button outline color="danger" onClick={handleOnSubmit}>
+            <Button outline color="danger" size="sm" onClick={handleOnSubmit}>
               Delete Post
             </Button>
           </Form>

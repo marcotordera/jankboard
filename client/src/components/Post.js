@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ListGroupItem, Collapse, Button, CardBody, Card } from "reactstrap";
 import { connect } from "react-redux";
-
 import CommentAddModal from "./CommentAddModal";
 import PostEditModal from "./PostEditModal";
 import CommentEditModal from "./CommentEditModal";
@@ -25,7 +24,7 @@ const Post = ({ postId, text, comments, userName, userId, currentUserId }) => {
               display: "flex",
             }}
           >
-            <Button outline color="primary" onClick={toggle}>
+            <Button outline color="primary" size="sm" onClick={toggle}>
               {isOpen ? "Hide" : "Show"}
             </Button>
             <CommentAddModal postId={postId} />

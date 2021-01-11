@@ -58,7 +58,7 @@ const PostAddModal = ({ isAuthenticated, addPost }) => {
                 onChange={handleChangeText}
               />
               <Button color="dark" style={{ marginTop: "2rem" }} block>
-                Add Item
+                Add Post
               </Button>
             </FormGroup>
           </Form>
