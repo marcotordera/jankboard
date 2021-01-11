@@ -83,16 +83,16 @@ export const login = ({ email, password }) => async (dispatch) => {
 };
 
 //Logout user
-export const logout = () => async (dispatch) => {
-  await dispatch({
+export const logout = () => (dispatch) => {
+  dispatch({
     type: LOGOUT_SUCCESS,
   });
 };
 
 // Setup config/headers and token
-export const tokenConfig = async (getState) => {
+export const tokenConfig = (getState) => {
   // Get token from localstorage
-  const token = await getState().auth.token;
+  const token = getState().auth.token;
 
   // Headers
   const config = {
