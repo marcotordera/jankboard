@@ -14,6 +14,7 @@ import {
 import { connect } from "react-redux";
 import { register } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
+import { useHistory } from "react-router-dom";
 
 const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
   const [modal, setModal] = useState(false);
@@ -21,6 +22,7 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState(null);
+  let history = useHistory();
 
   const handleToggle = useCallback(() => {
     // Clear errors
@@ -32,7 +34,7 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
   const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
 
     // Create user object
@@ -43,7 +45,8 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
     };
 
     // Attempt to login
-    register(user);
+    const result = await register(user);
+    if (result) history.push("/board");
   };
 
   useEffect(() => {

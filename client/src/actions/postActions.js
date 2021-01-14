@@ -48,7 +48,7 @@ export const deletePost = (id) => async (dispatch, getState) => {
     dispatch(returnErrors(err.response.data, err.response.status));
   }
 };
-
+//////////comments/////////
 export const addComment = (post) => async (dispatch, getState) => {
   try {
     const res = await axios.post(
@@ -81,6 +81,34 @@ export const deleteComment = (post) => async (dispatch, getState) => {
       tokenConfig(getState)
     );
     dispatch({ type: DELETE_COMMENT, payload: res.data });
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status));
+  }
+};
+///////////////////sorts///////////
+export const sortMostComment = (posts) => async (dispatch) => {
+  try {
+    posts.sort((a, b) => {
+      if (a === b) {
+        return 0;
+      }
+      return a.comments.length > b.comments.length ? -1 : 1;
+    });
+    dispatch({ type: GET_POSTS, payload: posts });
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status));
+  }
+};
+
+export const sortLatestPost = (posts) => async (dispatch) => {
+  try {
+    posts.sort((a, b) => {
+      if (a === b) {
+        return 0;
+      }
+      return a.date > b.date ? -1 : 1;
+    });
+    dispatch({ type: GET_POSTS, payload: posts });
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status));
   }

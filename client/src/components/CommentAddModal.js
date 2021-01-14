@@ -8,43 +8,48 @@ import {
   FormGroup,
   Label,
   Input,
+  Alert,
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addComment } from "../actions/postActions";
-const CommentAddModal = ({ isAuthenticated, addComment, postId }) => {
+const CommentAddModal = ({ addComment, postId }) => {
   const [modal, setModal] = useState(false);
   const [text, setText] = useState("");
+  const [msg, setMsg] = useState(null);
 
-  const handleToggle = () => setModal(!modal);
-
+  const handleToggle = () => {
+    setMsg(null);
+    setModal(!modal);
+    setText("");
+  };
   const handleChangeText = (e) => setText(e.target.value);
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    if (text !== "") {
+      const newComment = {
+        text,
+        id: postId,
+      };
 
-    const newComment = {
-      text,
-      id: postId,
-    };
-
-    // console.log(newComment);
-    addComment(newComment);
-    // Close modal
-    handleToggle();
+      // console.log(newComment);
+      addComment(newComment);
+      // Close modal
+      handleToggle();
+    } else {
+      setMsg("Please enter a message");
+    }
   };
 
   return (
     <div>
-      {isAuthenticated ? (
-        <Button outline color="secondary" size="sm" onClick={handleToggle}>
-          Reply
-        </Button>
-      ) : (
-        ""
-      )}
+      <Button outline color="secondary" size="sm" onClick={handleToggle}>
+        Reply
+      </Button>
 
       <Modal isOpen={modal} toggle={handleToggle}>
         <ModalHeader toggle={handleToggle}>Add Reply</ModalHeader>
         <ModalBody>
+          {msg ? <Alert color="danger">{msg}</Alert> : null}
           <Form onSubmit={handleOnSubmit}>
             <FormGroup>
               <Label for="comment">Enter Reply</Label>
@@ -70,8 +75,5 @@ const CommentAddModal = ({ isAuthenticated, addComment, postId }) => {
     </div>
   );
 };
-const mapStateToProps = (state) => ({
-  post: state.post,
-  isAuthenticated: state.auth.isAuthenticated,
-});
+const mapStateToProps = (state) => ({});
 export default connect(mapStateToProps, { addComment })(CommentAddModal);

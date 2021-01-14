@@ -14,12 +14,14 @@ import {
 import { connect } from "react-redux";
 import { login } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
+import { useHistory } from "react-router-dom";
 
 const LoginModal = ({ isAuthenticated, error, login, clearErrors }) => {
   const [modal, setModal] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState(null);
+  let history = useHistory();
 
   const handleToggle = useCallback(() => {
     // Clear errors
@@ -30,13 +32,14 @@ const LoginModal = ({ isAuthenticated, error, login, clearErrors }) => {
   const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
 
     const user = { email, password };
 
     // Attempt to login
-    login(user);
+    const result = await login(user);
+    if (result) history.push("/board");
   };
 
   useEffect(() => {

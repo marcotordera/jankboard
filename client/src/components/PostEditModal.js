@@ -8,26 +8,36 @@ import {
   FormGroup,
   Label,
   Input,
+  Alert,
 } from "reactstrap";
 import { connect } from "react-redux";
 import { editPost } from "../actions/postActions";
 const PostEditModal = ({ editPost, postId }) => {
   const [modal, setModal] = useState(false);
   const [text, setText] = useState("");
-  const handleToggle = () => setModal(!modal);
+  const [msg, setMsg] = useState(null);
+
   const handleChangeText = (e) => setText(e.target.value);
+  const handleToggle = () => {
+    setMsg(null);
+    setModal(!modal);
+    setText("");
+  };
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    if (text !== "") {
+      const newPost = {
+        text,
+        id: postId,
+      };
 
-    const newPost = {
-      text,
-      id: postId,
-    };
-
-    // console.log(newComment);
-    editPost(newPost);
-    // Close modal
-    handleToggle();
+      // console.log(newComment);
+      editPost(newPost);
+      // Close modal
+      handleToggle();
+    } else {
+      setMsg("Please enter a message");
+    }
   };
 
   return (
@@ -38,6 +48,7 @@ const PostEditModal = ({ editPost, postId }) => {
       <Modal isOpen={modal} toggle={handleToggle}>
         <ModalHeader toggle={handleToggle}>Edit Post</ModalHeader>
         <ModalBody>
+          {msg ? <Alert color="danger">{msg}</Alert> : null}
           <Form onSubmit={handleOnSubmit}>
             <FormGroup>
               <Label for="comment">Edit Post</Label>

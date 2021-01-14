@@ -8,27 +8,37 @@ import {
   FormGroup,
   Label,
   Input,
+  Alert,
 } from "reactstrap";
 import { connect } from "react-redux";
 import { editComment } from "../actions/postActions";
 const CommentEditModal = ({ editComment, postId, commentId }) => {
   const [modal, setModal] = useState(false);
   const [text, setText] = useState("");
-  const handleToggle = () => setModal(!modal);
+  const [msg, setMsg] = useState(null);
+
+  const handleToggle = () => {
+    setMsg(null);
+    setModal(!modal);
+    setText("");
+  };
   const handleChangeText = (e) => setText(e.target.value);
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    if (text !== "") {
+      const newComment = {
+        text,
+        postId: postId,
+        commentId: commentId,
+      };
 
-    const newComment = {
-      text,
-      postId: postId,
-      commentId: commentId,
-    };
-
-    // console.log(newComment);
-    editComment(newComment);
-    // Close modal
-    handleToggle();
+      // console.log(newComment);
+      editComment(newComment);
+      // Close modal
+      handleToggle();
+    } else {
+      setMsg("Please enter a message");
+    }
   };
 
   return (
@@ -39,6 +49,8 @@ const CommentEditModal = ({ editComment, postId, commentId }) => {
       <Modal isOpen={modal} toggle={handleToggle}>
         <ModalHeader toggle={handleToggle}>Edit Reply</ModalHeader>
         <ModalBody>
+          {msg ? <Alert color="danger">{msg}</Alert> : null}
+
           <Form onSubmit={handleOnSubmit}>
             <FormGroup>
               <Label for="comment">Edit Reply</Label>

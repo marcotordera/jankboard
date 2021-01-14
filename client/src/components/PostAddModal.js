@@ -8,45 +8,52 @@ import {
   FormGroup,
   Label,
   Input,
+  Alert,
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addPost } from "../actions/postActions";
-const PostAddModal = ({ isAuthenticated, addPost }) => {
+const PostAddModal = ({ addPost }) => {
   const [modal, setModal] = useState(false);
   const [text, setText] = useState("");
+  const [msg, setMsg] = useState(null);
 
-  const handleToggle = () => setModal(!modal);
+  const handleToggle = () => {
+    setMsg(null);
+    setModal(!modal);
+    setText("");
+  };
 
   const handleChangeText = (e) => setText(e.target.value);
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    if (text !== "") {
+      const newPost = {
+        text,
+      };
 
-    const newPost = {
-      text,
-    };
-
-    addPost(newPost);
-    // Close modal
-    handleToggle();
+      addPost(newPost);
+      // Close modal
+      handleToggle();
+    } else {
+      setMsg("Please enter a message");
+    }
   };
 
   return (
     <div>
-      {isAuthenticated ? (
-        <Button
-          color="dark"
-          style={{ marginBottom: "2rem" }}
-          onClick={handleToggle}
-        >
-          New Post
-        </Button>
-      ) : (
-        <h4 className="mb-3 ml-4">Log in to add Post and replies</h4>
-      )}
+      <Button
+        color="dark"
+        style={{ marginBottom: "2rem" }}
+        onClick={handleToggle}
+        size="sm"
+      >
+        New Post
+      </Button>
 
       <Modal isOpen={modal} toggle={handleToggle}>
         <ModalHeader toggle={handleToggle}>Add Post</ModalHeader>
         <ModalBody>
+          {msg ? <Alert color="danger">{msg}</Alert> : null}
           <Form onSubmit={handleOnSubmit}>
             <FormGroup>
               <Label for="post">Enter Post</Label>
@@ -67,8 +74,5 @@ const PostAddModal = ({ isAuthenticated, addPost }) => {
     </div>
   );
 };
-const mapStateToProps = (state) => ({
-  post: state.post,
-  isAuthenticated: state.auth.isAuthenticated,
-});
+const mapStateToProps = (state) => ({});
 export default connect(mapStateToProps, { addPost })(PostAddModal);

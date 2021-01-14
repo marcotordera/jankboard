@@ -7,6 +7,7 @@ import {
   Nav,
   NavItem,
   Container,
+  NavLink,
 } from "reactstrap";
 import { connect } from "react-redux";
 import RegisterModal from "./auth/RegisterModal";
@@ -25,18 +26,31 @@ const AppNavbar = ({ auth }) => {
           <strong>{auth && auth.user ? `Hello ${auth.user.name}` : ""}</strong>
         </span>
       </NavItem>
+
       <NavItem>
         <Logout />
+      </NavItem>
+      <NavItem>
+        <NavLink href="/board">Boards</NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="/">About</NavLink>
       </NavItem>
     </Fragment>
   );
   const guestLinks = (
     <Fragment>
       <NavItem>
+        <LoginModal />
+      </NavItem>
+      <NavItem>
         <RegisterModal />
       </NavItem>
       <NavItem>
-        <LoginModal />
+        <NavLink href="/board">Boards</NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="/">About</NavLink>
       </NavItem>
     </Fragment>
   );

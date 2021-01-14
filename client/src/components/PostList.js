@@ -3,17 +3,25 @@ import { Container, ListGroup } from "reactstrap";
 import { connect } from "react-redux";
 import { getPosts } from "../actions/postActions";
 import PostAddModal from "./PostAddModal";
+import SortDropDown from "./SortDropDown";
 import Post from "./Post";
-const PostList = ({ getPosts, post, authUser }) => {
+const PostList = ({ getPosts, post, authUser, isAuthenticated }) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
-  const { posts } = post;
   return (
     <Container>
       <ListGroup>
-        <PostAddModal />
-        {posts.map(({ _id, text, comments, userName, userId }) => (
+        {isAuthenticated ? (
+          <div className="floatright">
+            <PostAddModal />
+            <SortDropDown />
+          </div>
+        ) : (
+          <h4 className="mb-3 ml-4">Log in to add Post and replies</h4>
+        )}
+
+        {post.posts.map(({ _id, text, comments, userName, userId }) => (
           <Post
             postId={_id}
             text={text}

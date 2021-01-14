@@ -18,12 +18,7 @@ const Post = ({ postId, text, comments, userName, userId, currentUserId }) => {
     >
       <div>
         {isShown ? (
-          <div
-            style={{
-              float: "right",
-              display: "flex",
-            }}
-          >
+          <div className="floatright">
             <Button outline color="primary" size="sm" onClick={toggle}>
               {isOpen ? "Hide" : "Show"}
             </Button>
@@ -53,12 +48,7 @@ const Post = ({ postId, text, comments, userName, userId, currentUserId }) => {
                       <Card>
                         <CardBody>
                           {userId === currentUserId ? (
-                            <div
-                              style={{
-                                float: "right",
-                                display: "flex",
-                              }}
-                            >
+                            <div className="floatright">
                               <CommentEditModal
                                 postId={postId}
                                 commentId={_id}

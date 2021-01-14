@@ -45,6 +45,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
+    return true;
   } catch (err) {
     dispatch(
       returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
@@ -72,6 +73,7 @@ export const login = ({ email, password }) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
+    return true;
   } catch (err) {
     dispatch(
       returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
@@ -83,10 +85,11 @@ export const login = ({ email, password }) => async (dispatch) => {
 };
 
 //Logout user
-export const logout = () => (dispatch) => {
+export const logout = () => async (dispatch) => {
   dispatch({
     type: LOGOUT_SUCCESS,
   });
+  return true;
 };
 
 // Setup config/headers and token

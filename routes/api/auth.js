@@ -76,7 +76,6 @@ router.post("/register", async (req, res) => {
         expiresIn: 3600,
       }
     );
-
     res.status(200).json({
       token,
       user: {
